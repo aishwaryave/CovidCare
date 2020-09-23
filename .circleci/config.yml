@@ -19,7 +19,7 @@ jobs:
 #          command:  echo $RELEASE_KEYSTORE_BASE64 | base64 -d > $releaseKeyStore
       - run:
          name: Create keystore.properties
-         command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' $releaseKeyAlias $releaseKeyPassword $releaseKeyStore $releaseStorePassword > keystore.properties
+         command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' ${releaseKeyAlias} ${releaseKeyPassword} ${releaseKeyStore} ${releaseStorePassword} > keystore.properties
       - restore_cache:
           # Pull down the cache if present
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
