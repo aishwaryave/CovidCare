@@ -14,6 +14,12 @@ jobs:
     steps:
         # checkout step is used to operate on the codebase
       - checkout
+      - run:
+         name: Create release.keystore.jks
+         command: openssl aes-256-cbc -d -in "${releaseKeyStore}.encrypted" -k $RELEASE_ENCRYPT_SECRET_KEY -md md5 >> $releaseKeyStore
+      - run:
+         name: Create keystore.properties
+         command: printf 'debugKeyAlias=%s\ndebugKeyPassword=%s\ndebugKeyStore=%s\ndebugStorePassword=%s\nreleaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' $debugKeyAlias $debugKeyPassword $debugKeyStore $debugStorePassword $releaseKeyAlias $releaseKeyPassword $releaseKeyStore $releaseStorePassword > keystore.properties
       - restore_cache:
           # Pull down the cache if present
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
