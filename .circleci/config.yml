@@ -14,9 +14,9 @@ jobs:
     steps:
         # checkout step is used to operate on the codebase
       - checkout
-      - run:
-         name: Create release.keystore.jks
-         command:  echo $RELEASE_KEYSTORE_BASE64 | base64 -d > $releaseKeyStore
+#       - run:
+#          name: Create release.keystore.jks
+#          command:  echo $RELEASE_KEYSTORE_BASE64 | base64 -d > $releaseKeyStore
       - run:
          name: Create keystore.properties
          command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' $releaseKeyAlias $releaseKeyPassword $releaseKeyStore $releaseStorePassword > keystore.properties
